@@ -19,12 +19,12 @@ class Website < Struct.new(:url, :person_id)
     server_header.downcase.include?('win32') || server_header.downcase.include?('iis') ||
       http_headers['X-Powered-By'] == 'ASP.NET' ? 'Microsoft Windows' : 'Linux'
   rescue
-    STDERR.puts "Error: operating system could not be determined for #{url}"
+    STDERR.puts "Error: operating system could not be determined for person: #{person_id}, url: #{url}"
     nil
   end
 
   def powered_by
-    http_headers['X-Powered-By']
+    http_headers['x-powered-by']
   end
 
   private
@@ -42,7 +42,7 @@ class Website < Struct.new(:url, :person_id)
       unless url.nil?
         uri = URI.parse(url)
         Net::HTTP.start(uri.host, uri.port) do |http|
-          http.head('/').each { |k, v| result[k] = v }
+          http.head('/').each { |k, v| result[k.downcase] = v }
         end
       end
       STDERR.puts result if ENV['DUMP_HEADERS']

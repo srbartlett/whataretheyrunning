@@ -8,11 +8,11 @@ require 'website'
 class Member < Struct.new(:id, :party, :lastname, :firstname)
 
   def person
-    Person.find(self)
+    @person ||= Person.find(self)
   end
 
   def website
-    Website.find(self)
+    @website ||= Website.find(self)
   end
 
   def self.still_in_office
