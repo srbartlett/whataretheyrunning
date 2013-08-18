@@ -10,12 +10,8 @@ class Cli < ::Thor
   desc "ask_for_head", "Fetch head from every member still in office as json"
   def ask_for_head
     puts "Asking for head..."
-    members = Member.still_in_office
     File.open('ask_for_head.json', 'w') do |f|
-      members.each do |m|
-        print '.'
-        f.write(JSON.pretty_generate(m.as_json)) rescue nil
-      end
+      f.write(JSON.pretty_generate(Member.still_in_office.map(&:as_json)))
     end
     puts "Done"
   end
