@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+$: << File.expand_path('../../lib', __FILE__)
+require 'thor'
+require 'member'
+require 'json'
+
+class Cli < ::Thor
+  include Actions
+
+  desc "ask_for_head", "Fetch head from every member still in office as json"
+  def ask_for_head
+    puts "Asking for head..."
+    members = Member.still_in_office
+    File.open('ask_for_head.json', 'w') do |f|
+      members.each do |m|
+        print '.'
+        f.write(JSON.pretty_generate(m.as_json)) rescue nil
+      end
+    end
+    puts "Done"
+  end
+end
+
+Cli.start
