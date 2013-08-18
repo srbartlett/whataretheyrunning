@@ -47,6 +47,8 @@ class Website < Struct.new(:url, :person_id)
       end
       STDERR.puts result if ENV['DUMP_HEADERS']
       result
+   rescue
+     {}
    end
   end
 end
