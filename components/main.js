@@ -26,6 +26,11 @@ window.WhatAreTheyRunning = (function() {
           });
         });
       });
+      byAppServer(data, function(r) {
+        nv.addGraph(function() {
+          renderChart("#app-server svg", r);
+        });
+      });
       jQuery.each(data, function(i,v) {
         $('#complete-list tr:last').after('<tr><td>' + v.firstname + ' ' + v.lastname + '</td><td>' + v.party + '</td><td><a href="' + v.url + '">'+ (v.url ? v.url : "N/A") + '</a></td><td>' + (v.operating_system ? v.operating_system : "N/A") + '</td><td>' + (v.server ? v.server : "N/A") + '</td></tr>');
       });
@@ -86,6 +91,24 @@ window.WhatAreTheyRunning = (function() {
     });
     view(Object.keys(results).map(function(s) { return {label: s, value: results[s]}; }));
   };
+
+  function byAppServer(data, view) {
+    results = {}
+    results['Unknown'] = 0
+    jQuery.each(data, function(key, s) {
+      if (s.powered_by) {
+        powered_by = s.powered_by.split("/")[0];
+        if (! (powered_by in results)) {
+          results[powered_by] = 0 ;
+        }
+        results[powered_by]++;
+      } else {
+        results['Unknown']++;
+      }
+    });
+    view(Object.keys(results).map(function(s) { return {label: s, value: results[s]}; }));
+  };
+
 
   function operatingSystems(data) {
     var p = data.map(function(s) { return s.operating_system });
