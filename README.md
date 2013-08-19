@@ -5,7 +5,7 @@ Unsure who to vote for at the 2013 Australian federal election?
 Does one party favour open-source more than the other?
 
 Using data from [OpenAustralia.org][] each member of the House of Represenatives
-with a personally website is checked. A `HEAD` request is issued to their website and
+with a personal website is checked. A `HEAD` request is issued to their website and
 the corresponding HTTP headers are used to determine their operating system, Web server,
 and Application server.
 
