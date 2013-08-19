@@ -4,9 +4,10 @@ Unsure who to vote for at the 2013 Australian federal election?
 
 Does one party favour open-source more than the other?
 
-Using data from [OpenAustralia.org][] every member of the House of Represenatives
-with a person website is checked. A `HEAD` request is issued to their website and
-the corresponding HTTP headers are used to determine their operating system and Web server.
+Using data from [OpenAustralia.org][] each member of the House of Represenatives
+with a personally website is checked. A `HEAD` request is issued to their website and
+the corresponding HTTP headers are used to determine their operating system, Web server,
+and Application server.
 
 [OpenAustralia.org]: http://www.openaustralia.org/
 
@@ -20,11 +21,20 @@ command:
     gem install nokogiri thor
     ./bin/whataretheyrunning ask_for_head
 
-This will output a json file that can be used for analysis. The `index.html`
-file in this repository uses this file to visualise what parties uses open-source.
+This outputs a json file that can be used for analysis.
+
+An example web page that uses javascript to visualise the results can be
+found in a branch called [gh-pages][]
+
+[gh-pages]: https://github.com/srbartlett/whataretheyrunning/tree/gh-pages
 
 ## Hosting
 
+Github Pages is used to host the [web page][]
+
+[web page]: http://srbartlett.github.io/whataretheyrunning
+
+#### Feedback welcome!
 
 ## Contributing
 
